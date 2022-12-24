@@ -13,13 +13,4 @@ jobs:
             distribution: 'temurin'
             java-version: '17'
       - name: Build with Maven Wrapper
-        run: ./mvnw -B package
-  Junit-Test:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/setup-java@v2
-        with:
-            distribution: 'temurin'
-            java-version: '17'
-      - name: Maven Test
-        run: mvn test
+        run: ./mvnw jacoco:report
