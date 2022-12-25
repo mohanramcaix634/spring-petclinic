@@ -11,4 +11,4 @@ jobs:
       - name: Build Maven
         run: 'pwd'
       - name: Install maven
-        run: 'mvn install'
+        run: './mvnw install'
