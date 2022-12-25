@@ -9,4 +9,6 @@ jobs:
       - uses: actions/checkout@v2
         name: Checkout
       - name: Build Maven
-        run: 'whoami'
+        run: 'pwd'
+      - name: Install maven
+        run: 'mvn install'
