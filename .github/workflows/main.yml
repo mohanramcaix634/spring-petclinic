@@ -48,3 +48,14 @@ jobs:
       continue-on-error: true
       env:
         SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
+        
+  Docker-Build:
+    needs: [Sca-Analysis]
+    runs-on: self-hosted
+    steps:
+    - name: build the docker image
+      run: docker build . -t mohanram634.jfrog.io/javarepo-docker-local/springboot:1
+    - name: docker login
+      run: docker login -u admin -p Hexaware@123 mohanram634.jfrog.io
+    - name: docker push
+      run: docker push mohanram634.jfrog.io/javarepo-docker-local/springboot:1
