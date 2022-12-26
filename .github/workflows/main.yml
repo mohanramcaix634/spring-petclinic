@@ -70,6 +70,6 @@ jobs:
        uses: aquasecurity/trivy-action@master
        with:
          scan-type: 'image'
-         image-ref: '.'
+         image-ref: 'mohanram634.jfrog.io/javarepo-docker-local/springboot:$GITHUB_RUN_NUMBER'
          trivy-config: trivy.yaml
  
