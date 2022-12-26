@@ -52,6 +52,9 @@ jobs:
       env:
         SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
         
+    - name: remove root files
+      run: 'pwd'
+        
   Docker-Build:
     needs: [Sca-Analysis]
     runs-on: self-hosted
