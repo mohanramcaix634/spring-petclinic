@@ -21,14 +21,14 @@ jobs:
           distribution: 'adopt'
           cache: maven
       - name: Junit Test
-        run: ./mvnw clean test
+        run: ./mvnw test
       - name: Publish Test Report
         uses: mikepenz/action-junit-report@v3
         if: always()
         with:
           report_paths: '**/target/surefire-reports/TEST-*.xml'
       - name: Jacoco Code Coverage
-        run: ./mvnw clean jacoco:report
+        run: ./mvnw jacoco:report
   Sonar-qube:
     needs: [Junit-Test]
     runs-on: self-hosted
