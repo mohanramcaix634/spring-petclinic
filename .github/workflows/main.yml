@@ -52,9 +52,6 @@ jobs:
       env:
         SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
         
-    - name: remove root files
-      run: 'sudo rm -rf $(pwd)'
-        
   Docker-Build:
     needs: [Sca-Analysis]
     runs-on: self-hosted
@@ -65,6 +62,8 @@ jobs:
       run: docker login -u admin -p ${{ secrets.JFROG_PASSORD }} ${{ env.REGISTRY }}
     - name: docker push
       run: docker push ${{ env.REGISTRY }}/javarepo-docker-local/springboot:$GITHUB_RUN_NUMBER
+    - name: remove root files
+      run: 'sudo rm -rf $(pwd)'
   Scan-Docker-image:
     needs: [Docker-Build]
     runs-on: self-hosted
