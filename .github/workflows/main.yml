@@ -27,5 +27,7 @@ jobs:
       - name: Jacoco Code Coverage
         run: ./mvnw jacoco:report
       
+      - name: sonar coverage
+        run: ./mvn sonar:sonar -Dsonar.projectKey=Petclinic-Spring -Dsonar.host.url=https://sonarcloud.io -Dsonar.login=5b04ec64a24c66bbe6341ef46bf4f6bb4be17cb7 -Dsonar.projectName=Petclinic-Spring
   
         
