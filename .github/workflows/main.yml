@@ -79,4 +79,12 @@ jobs:
        with:
         sarif_file: 'trivy-results.sarif'
         category: my-analysis-tool
+  KubernetesDeploy:
+    needs: [Scan-Docker-image]
+    runs-on: self-hosted
+    steps:
+     - name: login to azure
+       uses: azure/login@v1
+       with:
+         creds: ${{ secrets.AZURE_CREDENTIALS }}
  
