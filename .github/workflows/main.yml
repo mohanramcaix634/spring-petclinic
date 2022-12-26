@@ -23,7 +23,7 @@ jobs:
         uses: mikepenz/action-junit-report@v3
         if: always()
         with:
-          report_paths: '**/build/test-results/test/TEST-*.xml'
+          report_paths: '**/targrt/surefire-reports/TEST-*.xml'
       - name: Jacoco Code Coverage
         run: ./mvnw jacoco:report
       
