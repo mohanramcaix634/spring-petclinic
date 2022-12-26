@@ -26,7 +26,11 @@ jobs:
           report_paths: '**/target/surefire-reports/TEST-*.xml'
       - name: Jacoco Code Coverage
         run: ./mvnw jacoco:report
-      - name: Build and analyze
+  Sonar-qube:
+    needs: [Junit-Test]
+    runs-on: self-hosted
+    steps:
+      - name: SAST and Code Coverage
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
