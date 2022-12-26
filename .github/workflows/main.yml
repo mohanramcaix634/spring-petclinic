@@ -19,8 +19,11 @@ jobs:
           cache: maven
       - name: Junit Test
         run: ./mvnw test
-      - name: maven package
-        run: ./mvnw package -Dmaven.test.skip=true
+      - name: Publish Test Report
+        uses: mikepenz/action-junit-report@v3
+        if: always()
+        with:
+          report_paths: '**/build/test-results/test/TEST-*.xml'
       - name: Jacoco Code Coverage
         run: ./mvnw jacoco:report
       
