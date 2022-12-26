@@ -69,7 +69,7 @@ jobs:
      - name: Run Trivy vulnerability scanner in fs mode
        uses: aquasecurity/trivy-action@master
        with:
-         scan-type: 'image'
          image-ref: 'mohanram634.jfrog.io/javarepo-docker-local/springboot:$GITHUB_RUN_NUMBER'
-         trivy-config: trivy.yaml
+         format: 'sarif'
+         output: 'trivy-results.sarif'
  
