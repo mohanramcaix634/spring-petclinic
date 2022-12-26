@@ -26,8 +26,22 @@ jobs:
           report_paths: '**/target/surefire-reports/TEST-*.xml'
       - name: Jacoco Code Coverage
         run: ./mvnw jacoco:report
-      
-      - name: sonar coverage
-        run: ./mvnw sonar:sonar -Dsonar.projectKey=Petclinic-Spring -Dsonar.organization=mohanramcaix634 -Dsonar.host.url=https://sonarcloud.io -Dsonar.login=5b04ec64a24c66bbe6341ef46bf4f6bb4be17cb7 -Dsonar.projectName=Petclinic-Spring
+      - name: Cache SonarCloud packages
+        uses: actions/cache@v1
+        with:
+          path: ~/.sonar/cache
+          key: ${{ runner.os }}-sonar
+          restore-keys: ${{ runner.os }}-sonar
+      - name: Cache Maven packages
+        uses: actions/cache@v1
+        with:
+          path: ~/.m2
+          key: ${{ runner.os }}-m2-${{ hashFiles('**/pom.xml') }}
+          restore-keys: ${{ runner.os }}-m2
+      - name: Build and analyze
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+        run: mvn -B verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar -Dsonar.projectKey=Petclinic-Spring
   
         
