@@ -3,7 +3,7 @@ on:
   push:
     branches: [ main ]
 jobs:
-  Build-Maven:
+  Junit-Test:
     runs-on: self-hosted
     strategy:
       matrix:
@@ -17,5 +17,12 @@ jobs:
           java-version: ${{matrix.java}}
           distribution: 'adopt'
           cache: maven
-      - name: Build with Maven Wrapper
-        run: ./mvnw install
+      - name: Junit Test
+        run: ./mvnw test
+      - name: maven package
+        run: ./mvnw package -Dmaven.test.skip=true
+      - name: Jacoco Code Coverage
+        run: ./mvnw jacoco:report
+      
+  
+        
