@@ -37,6 +37,5 @@ jobs:
        with:
          action: deploy
          manifests: deployment.yml
-         images: |
-           mohanram634.jfrog.io/javarepo-docker-local/springboot:${{ GITHUB_RUN_NUMBER }}
+         images: 'mohanram634.jfrog.io/javarepo-docker-local/springboot:${{ GITHUB_RUN_NUMBER }}'
 
