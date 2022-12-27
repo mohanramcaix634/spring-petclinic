@@ -1,0 +1,44 @@
+name: Java CI with Maven
+on:
+  push:
+    branches: [ main ]
+env:
+  CI_REGISTRY: mohanram634.jfrog.io
+  RESOURCE_GROUP: kubernetes
+  CLUSTER_NAME: kubernetes
+       
+  Docker-Build:
+    needs: [Sca-Analysis]
+    runs-on: self-hosted
+    steps:
+    - name: build the docker image
+      run: docker build . -t ${{ env.CI_REGISTRY }}/javarepo-docker-local/springboot:$GITHUB_RUN_NUMBER
+    - name: docker login
+      run: docker login -u admin -p ${{ secrets.JFROG_PASSORD }} ${{ env.CI_REGISTRY }}
+    - name: docker push
+      run: docker push ${{ env.CI_REGISTRY }}/javarepo-docker-local/springboot:$GITHUB_RUN_NUMBER
+
+  KubernetesDeploy:
+    needs: [Scan-Docker-image]
+    runs-on: self-hosted
+    steps:
+     - name: login to azure
+       uses: azure/login@v1
+       with:
+         creds: ${{ secrets.AZURE_CREDENTIALS }}
+     - name: Get K8s context
+       uses: azure/aks-set-context@v3
+       with:
+         resource-group: ${{ env.RESOURCE_GROUP }}
+         cluster-name: ${{ env.CLUSTER_NAME }}
+     - name: Create Namespace
+       run: kubectl create secret docker-registry regcred --docker-server=${{ env.CI_REGISTRY }} --docker-username=admin --docker-password=${{ secrets.JFROG_PASSORD }} --dry-run=client -o yaml |kubectl apply -f -
+      # Deploys application based on given manifest file
+     - name: Deploys application
+       uses: Azure/k8s-deploy@v4
+       with:
+         action: deploy
+         manifests: deployment.yml
+         images: |
+           mohanram634.jfrog.io/javarepo-docker-local/springboot:$GITHUB_RUN_NUMBER
+
