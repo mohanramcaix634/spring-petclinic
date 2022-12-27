@@ -37,5 +37,5 @@ jobs:
        with:
          action: deploy
          manifests: deployment.yml
-         images: mohanram634.jfrog.io/javarepo-docker-local/springboot:${{ github_sha::4 }}
+         images: mohanram634.jfrog.io/javarepo-docker-local/springboot:${{github_sha}}
 
