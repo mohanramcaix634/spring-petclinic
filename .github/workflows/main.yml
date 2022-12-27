@@ -6,9 +6,8 @@ env:
   CI_REGISTRY: mohanram634.jfrog.io
   RESOURCE_GROUP: kubernetes
   CLUSTER_NAME: kubernetes
-       
+jobs:
   Docker-Build:
-    needs: [Sca-Analysis]
     runs-on: self-hosted
     steps:
     - name: build the docker image
@@ -19,7 +18,6 @@ env:
       run: docker push ${{ env.CI_REGISTRY }}/javarepo-docker-local/springboot:$GITHUB_RUN_NUMBER
 
   KubernetesDeploy:
-    needs: [Scan-Docker-image]
     runs-on: self-hosted
     steps:
      - name: login to azure
