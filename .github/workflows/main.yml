@@ -59,11 +59,11 @@ jobs:
     runs-on: self-hosted
     steps:
     - name: build the docker image
-      run: docker build . -t ${{ env.REGISTRY }}/javarepo-docker-local/springboot:$GITHUB_RUN_NUMBER
+      run: docker build . -t ${{ env.CI_REGISTRY }}/javarepo-docker-local/springboot:$GITHUB_RUN_NUMBER
     - name: docker login
-      run: docker login -u admin -p ${{ secrets.JFROG_PASSORD }} ${{ env.REGISTRY }}
+      run: docker login -u admin -p ${{ secrets.JFROG_PASSORD }} ${{ env.CI_REGISTRY }}
     - name: docker push
-      run: docker push ${{ env.REGISTRY }}/javarepo-docker-local/springboot:$GITHUB_RUN_NUMBER
+      run: docker push ${{ env.CI_REGISTRY }}/javarepo-docker-local/springboot:$GITHUB_RUN_NUMBER
     - name: remove root files
       run: 'sudo rm -rf $(pwd)'
   Scan-Docker-image:
