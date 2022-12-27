@@ -64,8 +64,7 @@ jobs:
       run: docker login -u admin -p ${{ secrets.JFROG_PASSORD }} ${{ env.CI_REGISTRY }}
     - name: docker push
       run: docker push ${{ env.CI_REGISTRY }}/javarepo-docker-local/springboot:$GITHUB_RUN_NUMBER
-    - name: remove root files
-      run: 'sudo rm -rf $(pwd)'
+
   Scan-Docker-image:
     needs: [Docker-Build]
     runs-on: self-hosted
@@ -104,4 +103,6 @@ jobs:
          manifests: deployment.yml
          images: |
            mohanram634.jfrog.io/javarepo-docker-local/springboot:$GITHUB_RUN_NUMBER
+     - name: remove root files
+       run: 'sudo rm -rf $(pwd)'
  
