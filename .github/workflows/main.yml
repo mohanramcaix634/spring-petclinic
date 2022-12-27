@@ -6,7 +6,7 @@ env:
   CI_REGISTRY: mohanram634.jfrog.io
   RESOURCE_GROUP: kubernetes
   CLUSTER_NAME: kubernetes
-  id: ${{github_run_number}}
+  id: ${{ GITHUB_RUN_NUMBER }}
 jobs:
   Docker-Build:
     runs-on: self-hosted
