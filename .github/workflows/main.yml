@@ -101,7 +101,7 @@ jobs:
        uses: Azure/k8s-deploy@v4
        with:
          action: deploy
-         manifests: java-dep.yml
+         manifests: deployment.yml
          images: |
-           mohanram634.jfrog.io/javarepo-docker-local/springboot:latest
+           mohanram634.jfrog.io/javarepo-docker-local/springboot:$GITHUB_RUN_NUMBER
  
