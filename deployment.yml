@@ -1,0 +1,23 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: spring-deployment
+  labels:
+    app: spring
+spec:
+  replicas: 1 
+  selector:
+    matchLabels:
+      app: spring
+  template:
+    metadata:
+      labels:
+        app: spring
+    spec:
+      containers:
+      - name: spring
+        image: mohanram634.jfrog.io/javarepo-docker-local/springboot
+        ports:
+        - containerPort: 80
+      imagePullSecrets:
+        - name: regcred
